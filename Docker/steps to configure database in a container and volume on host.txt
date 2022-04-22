@@ -1,0 +1,41 @@
+# Create a volume and mysql config 
+
+docker volume create mysql
+docker volume create mysql_config
+
+# Create a network in which application and database can talk to each other
+
+docker network create mysqlnet
+
+# Launch the database container with external volume
+
+docker run --rm -d -v mysql:/var/lib/mysql \
+  -v mysql_config:/etc/mysql -p 3306:3306 -h 127.0.0.1\
+  --network mysqlnet \
+  --name mysqldb \
+  -e MYSQL_ROOT_PASSWORD=Nirvikalpa#123\
+  mysql
+
+docker run --rm -d -p 3306:3306 \
+  --name mysqldb \
+  -e MYSQL_ROOT_PASSWORD=Nirvikalpa#123 \
+  mysql
+
+
+
+# build with docker-compose
+
+docker-compose -f docker-compose.yml up --build
+
+# Take the dump of all from teh container incase the mysql server not running on your local machine
+
+mysqldump -u root -p --all-databases > alldb.sql
+
+# Transfer the file to your target local machine.
+
+docker cp container:/path .
+
+
+# Use Mysql client to import the data from the above file.
+
+

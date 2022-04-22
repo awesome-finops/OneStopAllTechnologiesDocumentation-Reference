@@ -94,6 +94,10 @@
 *  **Docker Registry** is responsible for storing and distributing docker images.
 *  We have already pulled images from default public registry , Docker Hub.
 *  Can also create our own registry using docker open source registry software or Docker trusted registry, the non free enterprise solution.
-*  To create a registry, simply run a container using the registry image and publish port 5000.
-  
+*  Steps to secure a docker registry (TLS with a certificate)
+      * ```mkdir ~/registry ```
+      * ```cd ~/registry```
+      * mkdir auth
+      * ```docker run --entrypoint htpasswd registry:2 -Bbn testuser password```
+
   
